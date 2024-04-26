@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        table {
+            background-color: red;
+            color: #4caf50;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+        var kekka = '';
+
+        function clearText() {
+            form.text.value = "";
+            kekka = "";
+        }
+
+        function btnPressed(x) {
+            if (kekka != "") {
+                form.text.value = kekka;
+                kekka = "";
+            }
+            form.text.value += x;
+        }
+
+        function backSpace() {
+            var value = form.text.value;
+            form.text.value = value.slice(0, -1);
+        }
+
+        function calculate() {
+            if (kekka != "") return;
+            kekka = eval(form.text.value);
+            form.text.value += "=" + kekka;
+        }
+
+        function sqrt() {
+            if (kekka != "") {
+                kekka = Math.sqrt(kekka);
+            } else {
+                kekka = Math.sqrt(eval(form.text.value));
+            }
+            form.text.value = kekka;
+        }
+
+        function keypress(event) {
+            if (event.keyCode != 0) {
+                moji = event.keyCode; //IE
+            } else {
+                moji = event.charCode; //Firefox
+            }
+            if (moji == 13 || moji == 61) { //13:リターンキー 61:イコール(=)
+                kekka = eval(form.text.value);
+                form.text.value += "=" + kekka;
+                return false; //入力文字を追加しないときは false を返す
+            }
+            return true;
+        }
+
+        function tax() {
+            if (kekka != "") {
+                return;
+            } else {
+                kekka = eval(form.text.value) * 110 / 100;
+            }
+            form.text.value = kekka;
+        }
+
+        function calculate2() {
+            if (kekka != "") {
+                kekka = Math.pow(parseFloat(kekka), 2);
+            } else {
+                kekka = Math.pow(parseFloat(form.text.value), 2);
+            }
+            document.form.text.value = kekka;
+        }
+
+        function calculate3() {
+            if (kekka != "") {
+                kekka = Math.pow(parseFloat(kekka), 3);
+            } else {
+                kekka = Math.pow(parseFloat(form.text.value), 3);
+            }
+            document.form.text.value = kekka;
+        }
+
+        function factorial(n) {
+            if (n === 0 || n === 1)
+                return 1;
+            for (var i = n - 1; i >= 1; i--) {
+                n *= i;
+            }
+            return n;
+        }
+
+        function calculateF() {
+            if (kekka != "") {
+                kekka = factorial(parseInt(kekka));
+            } else {
+                kekka = factorial(parseInt(document.form.text.value));
+            }
+            document.form.text.value = kekka;
+        }
+        
+    </script>
+</head>
+
+<body>
+    <form name="form">
+        <table>
+            <tr>
+                <td colspan="4">
+                    <input type="text" name="text" onKeyPress="return keypress(event)"
+                        style="width: 300px; height: 70px; font-size:30px">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" value="C" onclick="clearText()"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="BS" onclick="backSpace()"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="(" onclick="btnPressed('(')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value=")" onclick="btnPressed(')')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="√" onclick="sqrt()" style="width:60px; height:60px; font-size:30px">
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="button" value="1" onclick="btnPressed('1')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="2" onclick="btnPressed('2')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="3" onclick="btnPressed('3')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="+" onclick="btnPressed('+')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="%" onclick="tax()" style="width:60px; height:60px; font-size:30px"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="4" onclick="btnPressed('4')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="5" onclick="btnPressed('5')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="6" onclick="btnPressed('6')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="-" onclick="btnPressed('-')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="x²" onClick="calculate2()"style="width:60px; height:60px; font-size:30px"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="7" onclick="btnPressed('7')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="8" onclick="btnPressed('8')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="9" onclick="btnPressed('9')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="*" onclick="btnPressed('*')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="x³" onClick="calculate3()"style="width:60px; height:60px; font-size:30px"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="0" onclick="btnPressed('0')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="=" onclick="calculate()"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="." onclick="btnPressed('.')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="/" onclick="btnPressed('/')"
+                        style="width:60px; height:60px; font-size:30px"></td>
+                <td><input type="button" value="!" onClick="calculateF()"style="width:60px; height:60px; font-size:30px"></td>
+            </tr>
+        </table>
+    </form>
+
+    <h3>使用方法</h3>
+    <ul>
+        <li>% ・・・ 消費税10%で計算します。</li>
+        <li>x²・・・ 与えられた数字を二乗します。</li>
+        <li>x³・・・ 与えられた数字を三乗します。</li>
+        <li>!・・・ 与えられた数字の階乗をします。</li>
+    </ul>
+</body>
+
+</html>
